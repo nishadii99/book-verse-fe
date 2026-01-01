@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Warm cream/ivory background - cozy bookstore feel */
+    --background: 42 45% 96%;
+    --foreground: 25 30% 12%;
+
+    --card: 40 40% 98%;
+    --card-foreground: 25 30% 12%;
+
+    --popover: 40 40% 98%;
+    --popover-foreground: 25 30% 12%;
+
+    /* Deep burgundy/wine primary - classic book aesthetic */
+    --primary: 350 55% 35%;
+    --primary-foreground: 42 45% 96%;
+
+    /* Warm sand/beige secondary */
+    --secondary: 35 45% 90%;
+    --secondary-foreground: 25 40% 25%;
+
+    /* Soft warm muted tones */
+    --muted: 35 25% 92%;
+    --muted-foreground: 25 15% 45%;
+
+    /* Rich amber/gold accent */
+    --accent: 38 75% 55%;
+    --accent-foreground: 25 40% 15%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 25% 85%;
+    --input: 35 25% 85%;
+    --ring: 350 55% 35%;
+
+    --radius: 0.75rem;
+
+    /* Custom BookVerse tokens */
+    --burgundy: 350 55% 35%;
+    --burgundy-light: 350 45% 50%;
+    --wine: 340 50% 28%;
+    --amber: 38 75% 55%;
+    --amber-light: 42 80% 70%;
+    --cream: 42 45% 96%;
+    --ivory: 40 35% 92%;
+    --espresso: 25 40% 18%;
+    --leather: 28 55% 35%;
+    --gold: 45 80% 50%;
+    --sage: 140 25% 45%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(350 55% 35%) 0%, hsl(340 50% 28%) 50%, hsl(25 40% 25%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(40 40% 99%) 0%, hsl(35 35% 95%) 100%);
+    --gradient-soft: linear-gradient(135deg, hsl(42 45% 97%) 0%, hsl(35 40% 94%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(38 75% 55% / 0.1) 0%, hsl(350 55% 35% / 0.05) 100%);
+    --gradient-paper: linear-gradient(180deg, hsl(42 45% 98%) 0%, hsl(35 30% 93%) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(25 40% 25% / 0.12);
+    --shadow-card: 0 8px 30px -8px hsl(25 40% 25% / 0.15);
+    --shadow-elevated: 0 20px 50px -12px hsl(25 40% 25% / 0.2);
+    --shadow-glow: 0 0 30px hsl(38 75% 55% / 0.15);
+
+    --sidebar-background: 40 40% 98%;
+    --sidebar-foreground: 25 30% 12%;
+    --sidebar-primary: 350 55% 35%;
+    --sidebar-primary-foreground: 42 45% 96%;
+    --sidebar-accent: 35 45% 90%;
+    --sidebar-accent-foreground: 25 40% 25%;
+    --sidebar-border: 35 25% 85%;
+    --sidebar-ring: 350 55% 35%;
+  }
+
+  .dark {
+    /* Deep espresso/charcoal background - sophisticated night reading */
+    --background: 25 25% 8%;
+    --foreground: 40 30% 92%;
+
+    --card: 25 20% 12%;
+    --card-foreground: 40 30% 92%;
+
+    --popover: 25 20% 12%;
+    --popover-foreground: 40 30% 92%;
+
+    /* Warm rose/burgundy primary for dark mode */
+    --primary: 350 50% 55%;
+    --primary-foreground: 25 25% 8%;
+
+    /* Deep warm secondary */
+    --secondary: 25 30% 18%;
+    --secondary-foreground: 40 35% 85%;
+
+    --muted: 25 20% 16%;
+    --muted-foreground: 35 15% 55%;
+
+    /* Golden amber accent */
+    --accent: 40 70% 50%;
+    --accent-foreground: 25 25% 8%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 25 20% 18%;
+    --input: 25 20% 18%;
+    --ring: 350 50% 55%;
+
+    --burgundy: 350 50% 55%;
+    --burgundy-light: 350 45% 65%;
+    --wine: 340 45% 40%;
+    --amber: 40 70% 50%;
+    --amber-light: 42 75% 60%;
+    --cream: 25 15% 14%;
+    --ivory: 25 18% 18%;
+    --espresso: 40 30% 85%;
+    --leather: 28 45% 45%;
+    --gold: 45 75% 55%;
+    --sage: 140 20% 40%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(350 50% 45%) 0%, hsl(340 45% 35%) 50%, hsl(25 35% 20%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(25 20% 12%) 0%, hsl(25 20% 10%) 100%);
+    --gradient-soft: linear-gradient(135deg, hsl(25 20% 14%) 0%, hsl(30 25% 12%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(40 70% 50% / 0.08) 0%, hsl(350 50% 55% / 0.05) 100%);
+    --gradient-paper: linear-gradient(180deg, hsl(25 20% 13%) 0%, hsl(25 18% 10%) 100%);
+
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.4);
+    --shadow-card: 0 8px 30px -8px hsl(0 0% 0% / 0.5);
+    --shadow-elevated: 0 20px 50px -12px hsl(0 0% 0% / 0.6);
+    --shadow-glow: 0 0 40px hsl(40 70% 50% / 0.1);
+
+    --sidebar-background: 25 20% 10%;
+    --sidebar-foreground: 40 30% 92%;
+    --sidebar-primary: 350 50% 55%;
+    --sidebar-primary-foreground: 25 25% 8%;
+    --sidebar-accent: 25 30% 18%;
+    --sidebar-accent-foreground: 40 35% 85%;
+    --sidebar-border: 25 20% 18%;
+    --sidebar-ring: 350 50% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', 'Libre Baskerville', Georgia, serif;
+  }
+}
+
+@layer components {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-hero);
+  }
+
+  .bg-gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  .bg-gradient-soft {
+    background-image: var(--gradient-soft);
+  }
+
+  .bg-gradient-warm {
+    background-image: var(--gradient-warm);
+  }
+
+  .bg-gradient-paper {
+    background-image: var(--gradient-paper);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Bookshelf pattern background */
+  .bg-bookshelf {
+    background-image: 
+      linear-gradient(90deg, transparent 0%, transparent 45%, hsl(var(--border) / 0.3) 45%, hsl(var(--border) / 0.3) 55%, transparent 55%, transparent 100%),
+      linear-gradient(hsl(var(--muted) / 0.5) 1px, transparent 1px);
+    background-size: 80px 80px, 100% 60px;
+  }
+
+  /* Paper texture overlay */
+  .bg-paper-texture {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+  }
+
+  /* Decorative book spine pattern */
+  .bg-book-spines {
+    background: repeating-linear-gradient(
+      90deg,
+      hsl(var(--primary) / 0.05) 0px,
+      hsl(var(--primary) / 0.05) 8px,
+      hsl(var(--accent) / 0.03) 8px,
+      hsl(var(--accent) / 0.03) 16px,
+      hsl(var(--secondary) / 0.05) 16px,
+      hsl(var(--secondary) / 0.05) 24px,
+      transparent 24px,
+      transparent 32px
+    );
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes scaleIn {
+    from { 
+      opacity: 0; 
+      transform: scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+}
