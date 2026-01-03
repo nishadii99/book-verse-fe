@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api/v1';
+const API_BASE_URL = 'https://book-verse-backend-beige.vercel.app/api/v1';
 
 // Auth token management
 export const getToken = () => localStorage.getItem('accessToken');
