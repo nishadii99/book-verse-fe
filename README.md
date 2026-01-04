@@ -21,7 +21,7 @@ Book Verse Frontend is a comprehensive e-commerce web application for browsing a
 ## 🌐 Deployed URLs
 
 * **Frontend:** [https://courageous-stroopwafel-0f1cbd.netlify.app]
-* **Backend:** [book-verse-backend-beige.vercel.app]
+* **Backend:** [https://book-verse-backend-beige.vercel.app/]
 
 
 ## 📋 Prerequisites
