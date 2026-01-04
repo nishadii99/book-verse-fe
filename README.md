@@ -18,6 +18,12 @@ Book Verse Frontend is a comprehensive e-commerce web application for browsing a
 - **State Management** — React Context API for global state
 - **Type Safety** — Full TypeScript support
 
+## 🌐 Deployed URLs
+
+* **Frontend:** [https://courageous-stroopwafel-0f1cbd.netlify.app]
+* **Backend:** [book-verse-backend-beige.vercel.app]
+
+
 ## 📋 Prerequisites
 
 - **Node.js** 18+ (or latest LTS version)
