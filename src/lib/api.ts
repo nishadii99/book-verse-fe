@@ -24,6 +24,25 @@ export const setStoredUser = (user: any) => {
   localStorage.setItem('user', JSON.stringify(user));
 };
 
+// Helper to extract error message from axios error
+export const getErrorMessage = (error: any): string => {
+  if (axios.isAxiosError(error)) {
+    // Check for response error message
+    if (error.response?.data?.message) {
+      return error.response.data.message;
+    }
+    if (error.response?.data?.error) {
+      return error.response.data.error;
+    }
+    // Network error
+    if (error.message) {
+      return error.message;
+    }
+  }
+  // Fallback
+  return error?.message || 'An unexpected error occurred';
+};
+
 // Create axios instance
 const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -75,7 +94,7 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
     // If error is 401 and we haven't retried yet
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
       if (isRefreshing) {
         // If already refreshing, queue this request
         return new Promise((resolve, reject) => {
@@ -102,20 +121,41 @@ apiClient.interceptors.response.use(
         clearTokens();
         processQueue(error, null);
         isRefreshing = false;
-        window.location.href = '/login';
+
+        // Only redirect if not already on login page
+        if (!window.location.pathname.includes('/login')) {
+          window.location.href = '/login';
+        }
         return Promise.reject(error);
       }
 
       try {
-        // Attempt to refresh the token
-        const response = await axios.post(`${API_BASE_URL}/auth/refresh`, {
-          refreshToken,
-        });
+        console.log('Attempting to refresh token...');
 
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
+        // Use a separate axios instance to avoid interceptor loop
+        const refreshResponse = await axios.post(
+          `${API_BASE_URL}/auth/refresh`,
+          { refreshToken },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        console.log('Refresh response:', refreshResponse.data);
+
+        // Handle different possible response structures
+        const responseData = refreshResponse.data.data || refreshResponse.data;
+        const { accessToken, refreshToken: newRefreshToken } = responseData;
+
+        if (!accessToken) {
+          throw new Error('No access token in refresh response');
+        }
 
         // Store new tokens
         setTokens(accessToken, newRefreshToken || refreshToken);
+        console.log('Tokens refreshed successfully');
 
         // Update the authorization header
         if (originalRequest.headers) {
@@ -127,11 +167,17 @@ apiClient.interceptors.response.use(
 
         // Retry the original request
         return apiClient(originalRequest);
-      } catch (refreshError) {
+      } catch (refreshError: any) {
+        console.error('Token refresh failed:', refreshError.response?.data || refreshError.message);
+
         // Refresh failed, clear tokens and redirect to login
         processQueue(refreshError as AxiosError, null);
         clearTokens();
-        window.location.href = '/login';
+
+        // Only redirect if not already on login page
+        if (!window.location.pathname.includes('/login')) {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User, authApi, getToken, setTokens, clearTokens, getStoredUser, setStoredUser } from '@/lib/api';
+import { User, authApi, getToken, setTokens, clearTokens, getStoredUser, setStoredUser, getErrorMessage } from '@/lib/api';
 
 interface AuthContextType {
   user: User | null;
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const initAuth = async () => {
       const token = getToken();
       const storedUser = getStoredUser();
-      
+
       if (token && storedUser) {
         setUser(storedUser);
         // Optionally verify token by fetching profile
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const response = await authApi.login(email, password);
     const { accessToken, refreshToken, roles } = response.data;
     setTokens(accessToken, refreshToken);
-    
+
     // Fetch full profile
     const profileResponse = await authApi.getProfile();
     const userData = profileResponse.data;
